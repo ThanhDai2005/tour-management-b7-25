@@ -12,13 +12,13 @@ const sequelize = new Sequelize(
   },
 );
 
-const connect = async () => {
-  try {
-    await sequelize.authenticate();
+sequelize
+  .authenticate()
+  .then(() => {
     console.log("Connect success!");
-  } catch (error) {
+  })
+  .catch((error) => {
     console.error("Connect error!", error);
-  }
-};
+  });
 
-export default connect;
+export default sequelize;
