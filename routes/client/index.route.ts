@@ -1,6 +1,6 @@
 import { Express } from "express";
-import toursRoute from "./tours.route";
+import tourRoute from "./tour.route";
 
 export const clientRoutes = (app: Express) => {
-  app.use("/tours", toursRoute);
+  app.use("/tours", tourRoute);
 };
