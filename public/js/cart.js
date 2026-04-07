@@ -1,11 +1,13 @@
 // Lấy ra data và in ra giao diện
 const drawListTour = () => {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
   fetch("http://localhost:3000/cart/list-tour", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: localStorage.getItem("cart"),
+    body: JSON.stringify(cart),
   })
     .then((res) => res.json())
     .then((data) => {
@@ -28,7 +30,6 @@ const drawListTour = () => {
               name="quantity"
               value="${item.quantity}"
               min="1"
-              item-id="${item.tourId}"
               onchange="handleChange(${item.tourId}, this)" 
               style="width: 60px;"
             />
@@ -90,5 +91,40 @@ const handleChange = (tourId, e) => {
 };
 
 // Hết cập nhật sản phẩm
+
+// Đặt hàng
+
+const formOrder = document.querySelector("[form-order]");
+
+formOrder.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  const fullName = e.target[0].value;
+  const phone = e.target[1].value;
+  const note = e.target[2].value;
+
+  const formData = {
+    fullName: fullName,
+    phone: phone,
+    note: note,
+    cart: cart,
+  };
+
+  fetch("http://localhost:3000/order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+});
+
+// Hết Đặt hàng
 
 drawListTour();
