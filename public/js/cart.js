@@ -1,17 +1,18 @@
 // Lấy ra data và in ra giao diện
-fetch("http://localhost:3000/cart/list-tour", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: localStorage.getItem("cart"),
-})
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data);
+const drawListTour = () => {
+  fetch("http://localhost:3000/cart/list-tour", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: localStorage.getItem("cart"),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
 
-    const htmlsArray = data.tours.map((item, index) => {
-      return `
+      const htmlsArray = data.tours.map((item, index) => {
+        return `
         <tr>
           <td>${index + 1}</td>
           <td>
@@ -33,18 +34,35 @@ fetch("http://localhost:3000/cart/list-tour", {
           </td>
           <td>${item.total.toLocaleString()}đ</td>
           <td>
-            <button class="btn btn-sm btn-danger" btn-delete="${item.tourId}">Xóa</button>
+            <button class="btn btn-sm btn-danger" onClick={deleteTour(${item.tourId})}>Xóa</button>
           </td>
         </tr>
       `;
+      });
+
+      const listTour = document.querySelector("[list-tour]");
+      listTour.innerHTML = htmlsArray.join("");
+
+      // Tính tổng đơn hàng
+      const totalPrice = data.tours.reduce((sum, item) => sum + item.total, 0);
+      const elementTotalPrice = document.querySelector("[total-price]");
+      elementTotalPrice.innerHTML = totalPrice.toLocaleString();
     });
-
-    const listTour = document.querySelector("[list-tour]");
-    listTour.innerHTML = htmlsArray.join("");
-
-    // Tính tổng đơn hàng
-    const totalPrice = data.tours.reduce((sum, item) => sum + item.total, 0);
-    const elementTotalPrice = document.querySelector("[total-price]");
-    elementTotalPrice.innerHTML = totalPrice.toLocaleString();
-  });
+};
 // Hết Lấy ra data và in ra giao diện
+
+// Xóa sản phẩm trong giỏ hàng
+
+const deleteTour = (tourId) => {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  const cartFilter = cart.filter((item) => item.tourId != tourId);
+
+  localStorage.setItem("cart", JSON.stringify(cartFilter));
+
+  drawListTour();
+};
+
+// Hết Xóa sản phẩm trong giỏ hàng
+
+drawListTour();
