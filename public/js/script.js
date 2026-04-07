@@ -43,6 +43,25 @@ if (!existCart) {
   localStorage.setItem("cart", JSON.stringify([]));
 }
 
+// Hiển thị thên số lượng sản phẩm vào mini-cart
+
+const showMiniCart = () => {
+  const miniCart = document.querySelector("[mini-cart]");
+
+  if (miniCart) {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+
+    const totalQuantity = cart.reduce(
+      (total, item) => total + item.quantity,
+      0,
+    );
+
+    miniCart.innerHTML = totalQuantity;
+  }
+};
+
+showMiniCart();
+
 // Thêm tour vào cart
 const form = document.querySelector("[form-add-to-cart]");
 
@@ -68,6 +87,7 @@ if (form) {
 
       localStorage.setItem("cart", JSON.stringify(cart));
 
+      showMiniCart();
       alertAddCartSuccess();
     }
   });
