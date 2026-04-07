@@ -29,12 +29,13 @@ const drawListTour = () => {
               value="${item.quantity}"
               min="1"
               item-id="${item.tourId}"
+              onchange="handleChange(${item.tourId}, this)" 
               style="width: 60px;"
             />
           </td>
           <td>${item.total.toLocaleString()}đ</td>
           <td>
-            <button class="btn btn-sm btn-danger" onClick={deleteTour(${item.tourId})}>Xóa</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteTour(${item.tourId})">Xóa</button>
           </td>
         </tr>
       `;
@@ -64,5 +65,30 @@ const deleteTour = (tourId) => {
 };
 
 // Hết Xóa sản phẩm trong giỏ hàng
+
+// Cập nhật sản phẩm
+
+const handleChange = (tourId, e) => {
+  const quantity = parseInt(e.value);
+
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  const newCart = cart.map((item) => {
+    if (item.tourId == tourId) {
+      return {
+        ...item,
+        quantity: quantity,
+      };
+    }
+
+    return item;
+  });
+
+  localStorage.setItem("cart", JSON.stringify(newCart));
+
+  drawListTour();
+};
+
+// Hết cập nhật sản phẩm
 
 drawListTour();
