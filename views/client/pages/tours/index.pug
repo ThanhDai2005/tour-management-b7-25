@@ -11,7 +11,7 @@ block main
       each item in tours 
         .col-6.mb-3
           div(class="card")
-            img(src=item.images)
+            img(src=item.images, style="height: 218.95px; width: 100%; object-fit: cover;")
             div(class="card-body")
               h5(class="card-title") #{item.title}
               b(class="mb-2 mr-2") #{item.price_special.toLocaleString()}đ

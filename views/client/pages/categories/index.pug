@@ -11,7 +11,7 @@ block main
       each item in categories 
         .col-6.mb-3
           .card 
-            img(src=item.image, alt="")
+            img(src=item.image, style="height: 218.95px; width: 100%; object-fit: cover")
             .card-body
               h5.card-title #{item.title}
               a(href=`/tours/${item.slug}` class="btn btn-primary") Xem chi tiết
