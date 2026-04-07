@@ -5,4 +5,6 @@ import * as controller from "../../controllers/client/cart.controller";
 
 router.get("/", controller.index);
 
+router.post("/list-tour", controller.listTour);
+
 export default router;
