@@ -121,7 +121,12 @@ formOrder.addEventListener("submit", (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      if (data.orderCode) {
+        localStorage.removeItem("cart");
+        window.location.href = `/order/success?orderCode=${data.orderCode}`;
+      } else {
+        alert("Đặt hàng không thành công!");
+      }
     });
 });
 
