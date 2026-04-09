@@ -60,6 +60,7 @@ export const createPost = async (req: Request, res: Response) => {
   const tour = (await Tour.create({
     title: data.title,
     code: code,
+    images: JSON.stringify(data.images),
     price: parseInt(data.price),
     discount: parseInt(data.discount),
     stock: parseInt(data.stock),
