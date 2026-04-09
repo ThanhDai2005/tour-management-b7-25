@@ -63,6 +63,8 @@ export const createPost = async (req: Request, res: Response) => {
     images: JSON.stringify(data.images),
     price: parseInt(data.price),
     discount: parseInt(data.discount),
+    information: data.information,
+    schedule: data.schedule,
     stock: parseInt(data.stock),
     timeStart: data.timeStart,
     position: data.position,

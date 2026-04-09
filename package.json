@@ -20,7 +20,8 @@
     "mysql2": "^3.20.0",
     "pug": "^3.0.4",
     "sequelize": "^6.37.8",
-    "slugify": "^1.6.9"
+    "slugify": "^1.6.9",
+    "tinymce": "^8.4.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
